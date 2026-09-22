@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ ARIA2C Turbo Video Downloader
+# ⚡ Turbo Hot Video Downloader
 
   <p align="center">
     <strong>Skrip CLI Downloader cepat, hemat kuota, dan kaya fitur visual untuk Termux & Linux.</strong>
@@ -26,7 +26,7 @@
 
 **ARIA2C Turbo Video Downloader** (`vidownload`) adalah skrip otomatisasi CLI berbasis Bash yang menggabungkan kemampuan ekstraksi **yt-dlp** dan kecepatan unduh *multi-threading* **aria2c**. 
 
-Dirancang khusus dengan **pilihan resolusi hemat ukuran file** serta tampilan **HUD Terminal Animasi** yang estetik dan bersih.
+Dirancang untuk mendownload video dari situs 18+.
 
 ---
 
@@ -47,7 +47,7 @@ atis menyetel DNS resolver (Cloudflare `1.1.1.1` / Google `8.8.8.8`) dan mengiri
 - **OS**: Termux (Android) atau Distribusi Linux (Ubuntu, Debian, Arch, dll.)
 - **Shell**: Bash / Zsh
 
-*Seluruh paket pendukung (`python`, `aria2`, `ffmpeg`, `yt-dlp`, dll) jika perlu jalankan bash requirement.sh
+*Seluruh paket pendukung (`python`, `aria2`, `ffmpeg`, `yt-dlp`, dll)
 
 ---
 
