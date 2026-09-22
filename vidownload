@@ -1,0 +1,212 @@
+#!/bin/bash
+
+# Folder & File Penanda Instalasi
+INSTALL_DIR="$HOME/.local/bin"
+DATA_DIR="$HOME/.local/share/hotvideo"
+INSTALL_FLAG="$DATA_DIR/.installed"
+
+# ----------------------------------------------------
+# CHECKING
+# ----------------------------------------------------
+if [ ! -f "$INSTALL_FLAG" ]; then
+    echo -e "\033[0;31m[!] KESALAHAN: Skrip ini belum diinstal dengan benar!\033[0m"
+    echo -e "\033[1;33m[i] Silakan jalankan installer terlebih dahulu:\033[0m"
+    echo -e "    \033[0;36mbash install.sh\033[0m"
+    exit 1
+fi
+
+# ----------------------------------------------------
+#
+# ----------------------------------------------------
+CYAN='\033[0;36m'
+GREEN='\033[0;32m'
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+WHITE='\033[1;37m'
+NC='\033[0m'
+
+#you can change the directory
+DEST_DIR="$HOME/storage/downloads/.gw"
+
+# Auto-set DNS
+if [ -d "$PREFIX/etc" ]; then
+    echo "nameserver 1.1.1.1" > $PREFIX/etc/resolv.conf
+    echo "nameserver 8.8.8.8" >> $PREFIX/etc/resolv.conf
+fi
+
+trap 'tput cnorm; exit' INT TERM EXIT
+tput civis
+
+show_spinner() {
+    local pid=$1
+    local delay=0.1
+    local spinstr='|/-\'
+    echo -ne " ${CYAN}Mengekstrak direct URL...${NC} "
+    while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+        local temp=${spinstr#?}
+        printf "[\b${YELLOW}%c${NC}]" "$spinstr"
+        local spinstr=$temp${spinstr%"$temp"}
+        sleep $delay
+        printf "\b\b\b"
+    done
+    printf "    \b\b\b\b"
+}
+
+draw_progress_bar() {
+    local current=$1
+    local total=$2
+    local width=25
+
+    if [ "$total" -eq 0 ]; then
+        local percent=0
+    else
+        local percent=$((current * 100 / total))
+    fi
+
+    local filled=$((percent * width / 100))
+    local empty=$((width - filled))
+
+    local bar=""
+    for ((i=0; i<filled; i++)); do bar+="█"; done
+    for ((i=0; i<empty; i++)); do bar+="░"; done
+
+    echo -ne "${CYAN}[${GREEN}${bar}${CYAN}] ${WHITE}${percent}%${NC}"
+}
+
+clear
+echo -e "${PURPLE}====================================================${NC}"
+echo -e "${CYAN}        ARIA2 VIDEO TURBO DOWNLOADER            ${NC}"
+echo -e "${PURPLE}====================================================${NC}"
+echo -e "${YELLOW}[+] Engine :${NC} yt-dlp + aria2c"
+echo -e "${YELLOW}[+] Target :${NC} $DEST_DIR"
+echo -e "${YELLOW}[+] Threads:${NC} 16 Connections"
+echo -e "${PURPLE}----------------------------------------------------${NC}"
+echo -e "${GREEN}[i] Kontrol Keyboard saat Mengunduh:${NC}"
+echo -e "    - Tekan ${YELLOW}p${NC} : Pause (Jeda)"
+echo -e "    - Tekan ${YELLOW}l${NC} : Lanjutkan (Resume)"
+echo -e "${PURPLE}====================================================${NC}"
+echo ""
+
+mkdir -p "$DEST_DIR"
+
+echo -ne "${BLUE}[?] Masukkan URL Video:${NC} "
+read url
+
+if [ -z "$url" ]; then
+    echo ""
+    echo -e "${RED}[!] URL tidak boleh kosong!${NC}"
+    tput cnorm
+    exit 1
+fi
+
+echo ""
+echo -e "${YELLOW}[?] Pilih Kualitas Video (Hemat Size):${NC}"
+echo -e "  ${CYAN}1)${NC} 360p (Sangat Hemat / Ukuran Paling Kecil)"
+echo -e "  ${CYAN}2)${NC} 480p (Rekomendasi Hemat / Cukup Jelas)"
+echo -e "  ${CYAN}3)${NC} 720p (Kualitas Sedang)"
+echo -e "  ${CYAN}4)${NC} Best (Kualitas Tertinggi / Size Besar)"
+echo -ne "${BLUE}Pilihan [1-4] (Default: 2 - 480p):${NC} "
+read res_choice
+
+case "$res_choice" in
+    1) FORMAT_OPT="b[height<=360]/wv*+ba/w" ;;
+    3) FORMAT_OPT="b[height<=720]/wv*+ba/w" ;;
+    4) FORMAT_OPT="b/wv*+ba/w" ;;
+    *) FORMAT_OPT="b[height<=480]/wv*+ba/w" ;;
+esac
+
+echo ""
+echo -ne "${BLUE}[?] Nama File Baru (Misal: video.mp4 / Kosongkan untuk default):${NC} "
+read custom_name
+echo ""
+
+TMP_URL_FILE=$(mktemp)
+(yt-dlp -g -f "$FORMAT_OPT" "$url" > "$TMP_URL_FILE" 2>/dev/null) &
+show_spinner $!
+
+DIRECT_URL=$(head -n 1 "$TMP_URL_FILE")
+rm -f "$TMP_URL_FILE"
+
+if [ -z "$DIRECT_URL" ]; then
+    echo -e "\r${RED}[✘] Gagal mengambil direct link video! Cek URL kamu.${NC}"
+    tput cnorm
+    exit 1
+fi
+
+echo -e "\r${GREEN}[✔] Direct link didapatkan! Memulai unduhan...${NC}"
+echo -e "${PURPLE}----------------------------------------------------${NC}"
+echo ""
+
+ARIA2_OUT_OPT=""
+if [ -n "$custom_name" ]; then
+    ARIA2_OUT_OPT="-o $custom_name"
+fi
+
+LOG_FILE=$(mktemp)
+
+aria2c -x 16 \
+       -s 16 \
+       -k 1M \
+       -d "$DEST_DIR" \
+       --user-agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64)" \
+       --referer="$url" \
+       --check-certificate=false \
+       --summary-interval=1 \
+       --show-console-readout=false \
+       $ARIA2_OUT_OPT \
+       "$DIRECT_URL" > "$LOG_FILE" 2>&1 &
+
+ARIA2PID=$!
+
+spin=('⠋' '⠙' '⠹' '⠸' '⠼' '⠴' '⠦' '⠧' '⠇' '⠏')
+spin_idx=0
+
+while kill -0 $ARIA2PID 2>/dev/null; do
+    spin_icon=${spin[$spin_idx]}
+    spin_idx=$(( (spin_idx + 1) % ${#spin[@]} ))
+
+    LAST_LINE=$(tail -n 5 "$LOG_FILE" | grep -E '\([0-9]+%\)' | tail -n 1)
+
+    if [ -n "$LAST_LINE" ]; then
+        PERCENT=$(echo "$LAST_LINE" | grep -oP '\(\K[0-9]+(?=%\))' || echo "0")
+        SPEED=$(echo "$LAST_LINE" | grep -oP 'DL:\K[0-9.]+[a-zA-Z]+' || echo "0B")
+        ETA=$(echo "$LAST_LINE" | grep -oP 'ETA:\K[0-9a-zA-Z]+' || echo "--")
+
+        echo -ne "\r${PURPLE}[$spin_icon]${NC} "
+        draw_progress_bar "$PERCENT" "100"
+        echo -ne " ${YELLOW}Speed:${NC} ${WHITE}${SPEED}/s${NC} | ${YELLOW}ETA:${NC} ${WHITE}${ETA}${NC}   "
+    else
+        echo -ne "\r${PURPLE}[$spin_icon]${NC} ${CYAN}Menghubungkan ke server...${NC}                  "
+    fi
+
+    read -n 1 -t 0.2 key
+    case "$key" in
+        p|P)
+            kill -STOP $ARIA2PID 2>/dev/null
+            echo -e "\n${YELLOW}[PAUSED] Unduhan dijeda. Tekan 'l' untuk melanjutkan.${NC}"
+            ;;
+        l|L)
+            kill -CONT $ARIA2PID 2>/dev/null
+            echo -e "\n${GREEN}[RESUMED] Melanjutkan unduhan...${NC}"
+            ;;
+    esac
+done
+
+wait $ARIA2PID
+STATUS=$?
+rm -f "$LOG_FILE"
+tput cnorm
+
+echo ""
+if [ $STATUS -eq 0 ]; then
+    echo -e "${PURPLE}----------------------------------------------------${NC}"
+    echo -e "${GREEN}[✔] SELESAI 100%! Video tersimpan di $DEST_DIR${NC}"
+    echo -e "${PURPLE}====================================================${NC}"
+else
+    echo -e "${PURPLE}----------------------------------------------------${NC}"
+    echo -e "${RED}[✘] Download terhenti atau gagal.${NC}"
+    echo -e "${PURPLE}====================================================${NC}"
+fi
+
