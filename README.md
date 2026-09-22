@@ -19,7 +19,6 @@
   ![License](https://img.shields.io/badge/License-MIT-blue?style=for-the-badge)
 
 </div>
-d
 ---
  <img width="1080" height="1263" alt="52993155b3499b3f381f3edb4f2cdd5b6e87d5d2" src="https://github.com/user-attachments/assets/ed23d5ea-3770-472d-b458-6029b8a4e4db" />
  
