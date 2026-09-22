@@ -85,7 +85,7 @@
                    export PATH="$BIN_DIR:$PATH"
                 fi
                 
-                # Pindahkan file biner/utama ke PATH
+                #
                 if [ -f "$SCRIPT_DIR/vidownload" ]; then
                     cp "$SCRIPT_DIR/vidownload" "$TARGET_BIN"
                     chmod +x "$TARGET_BIN"
