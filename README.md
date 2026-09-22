@@ -7,7 +7,7 @@
 ![](/data/user/0/cloud.iothub.markdown_viewer_editor/cache/file_picker/1790044656087/Screenshot_vidownload.jpg)
 
 ## 📌 Deskripsi
-**ARIA2C Turbo Video Downloader** (`ngedownload`) adalah skrip otomatisasi CLI berbasis Bash yang menggabungkan kemampuan ekstraksi **yt-dlp** dan kecepatan unduh _multi-threading_ **aria2c**.
+**ARIA2C Turbo Video Downloader** (`vidownload`) adalah skrip otomatisasi CLI berbasis Bash yang menggabungkan kemampuan ekstraksi **yt-dlp** dan kecepatan unduh _multi-threading_ **aria2c**.
 Dirancang khusus dengan **pilihan resolusi hemat ukuran file** serta tampilan **HUD Terminal Animasi** yang estetik dan bersih.
 ---
 ## ✨ Fitur Utama
