@@ -24,7 +24,7 @@
 
 ## 📌 Deskripsi
 
-**ARIA2C Turbo Video Downloader** (`ngedownload`) adalah skrip otomatisasi CLI berbasis Bash yang menggabungkan kemampuan ekstraksi **yt-dlp** dan kecepatan unduh *multi-threading* **aria2c**. 
+**ARIA2C Turbo Video Downloader** (`vidownload`) adalah skrip otomatisasi CLI berbasis Bash yang menggabungkan kemampuan ekstraksi **yt-dlp** dan kecepatan unduh *multi-threading* **aria2c**. 
 
 Dirancang khusus dengan **pilihan resolusi hemat ukuran file** serta tampilan **HUD Terminal Animasi** yang estetik dan bersih.
 
@@ -46,7 +46,7 @@ Dirancang khusus dengan **pilihan resolusi hemat ukuran file** serta tampilan **
 - **OS**: Termux (Android) atau Distribusi Linux (Ubuntu, Debian, Arch, dll.)
 - **Shell**: Bash / Zsh
 
-*Seluruh paket pendukung (`python`, `aria2`, `ffmpeg`, `yt-dlp`, dll) akan **otomatis terpasang** melalui skrip `install.sh`.*
+*Seluruh paket pendukung (`python`, `aria2`, `ffmpeg`, `yt-dlp`, dll) jika perlu jalankan bash requirement.sh
 
 ---
 
@@ -54,6 +54,6 @@ Dirancang khusus dengan **pilihan resolusi hemat ukuran file** serta tampilan **
 
 1. **Clone / Download repositori ini** ke perangkat kamu:
    ```bash
-   git clone [https://github.com/username/repository-nama.git](https://github.com/username/repository-nama.git)
-   cd repository-nama
+   git clone https://github.com/iksan757/Hot-Video-Downloader.git
+   bash install.sh and vidownload
 
