@@ -56,4 +56,5 @@ atis menyetel DNS resolver (Cloudflare `1.1.1.1` / Google `8.8.8.8`) dan mengiri
 1. **Clone / Download repositori ini** ke perangkat kamu:
    ```bash
    git clone https://github.com/iksan757/Hot-Video-Downloader.git
-   bash install.sh && vidownload
+  cd Hot-Video-Downloader/assets/
+  bash install.sh
