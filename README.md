@@ -32,7 +32,8 @@ It is designed to download videos from 18+ sites and features rapid direct link 
 
 ## ✨ Key Features
 
-- 🚀 **Multi-Threaded Acceleration**: Uses 16 parallel connections via `aria2c` for maximum download speed. - 📉 **Quality & Size Options**: Flexible choices for video quality (360p, 480p, 720p, or Best) to save storage space and data.
+- 🚀 **Multi-Threaded Acceleration**: Uses 16 parallel connections via `aria2c` for maximum download speed.
+- 📉 **Quality & Size Options**: Flexible choices for video quality (360p, 480p, 720p, or Best) to save storage space and data.
 - 🎨 **Visual Animation Dashboard**: Features a visual progress bar (`[██████░░░░]`), spinning spinner, real-time speed display, and estimated time (ETA).
 - ⏯️ **Interactive Controls**: Pause/resume functionality during the download process without dropping the connection.
 - 🌐 **Anti-Block & DNS Bypass**: Automatically provides DNS resolvers (Cloudflare `1.1.1.1` / Google `8.8.8.8`) and sends headers (User-Agent & Referer) to avoid server blocking.
@@ -44,8 +45,8 @@ It is designed to download videos from 18+ sites and features rapid direct link 
 
 - **OS**: Termux (Android) or Linux Distribution (Ubuntu, Debian, Arch, etc.)
 - **Shell**: Bash / Zsh
-
-*All supporting packages (`python`, `aria2`, `ffmpeg`, `yt-dlp`, etc.)
+- **Dependencies**: `python`, `aria2`, `ffmpeg`, `yt-dlp` *(Will be automatically checked and installed by the installer script)*.
+- 
 
 ---
 
