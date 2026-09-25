@@ -46,7 +46,7 @@
 
 - **OS**: Termux (Android) or Linux Distribution (Ubuntu, Debian, Arch, etc.)
 - **Shell**: Bash / Zsh
-- **Dependencies**: `python`, `aria2`, `ffmpeg`, `python-yt-dlp`, `yt-dlp-ejs` *(Will be automatically checked and installed by the installer script)*.
+- **Dependencies**: `python`, `aria2`, `ffmpeg`, `python-yt-dlp`, `yt-dlp-ejs` `(Will be automatically checked and installed by the installer script)`
   
 ---
 
