@@ -1,7 +1,9 @@
 <div align="center">
-VIDOWNLOAD
+
+# ⚡ VIDOWNLOAD
+
 <p align="center">
-<strong> A fast CLI video downloader wrapper for videos,  for Termux & Linux.</strong>
+<strong> A fast CLI video downloader,  for Termux & Linux.</strong>
 <br />
 <br />
 <a href="#-key-features">Key Features</a> •
