@@ -1,6 +1,6 @@
 <div align="center">
 
-# ⚡ Script Bash Video Downloader
+# ⚡ CLI Video Downloader
 
 <p align="center">
 <strong> A fast CLI video downloader wrapper for videos, designed for Termux & Linux.</strong>
