@@ -1,6 +1,5 @@
 <div align="center">
-# 🎬 Vidownload
- 
+VIDOWNLOAD
 <p align="center">
 <strong> A fast CLI video downloader wrapper for videos,  for Termux & Linux.</strong>
 <br />
