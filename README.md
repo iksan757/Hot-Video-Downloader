@@ -54,8 +54,8 @@
 
 1. **Clone / Download this repository** to your device:
 ```bash
-git clone https://github.com/iksan757/Hot-Video-Downloader.git
-cd Hot-Video-Downloader/assets/
+git clone https://github.com/iksan757/Vidownload.git
+cd Vidownload/assets/
 
 bash install.sh
 ```
