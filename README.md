@@ -26,8 +26,6 @@
 
 **Hot Video Downloader** (`vidownload`) is a Bash-based CLI automation script that combines the extraction capabilities of **yt-dlp** with the multi-threaded download speed of **aria2c**.
 
-It is designed to download videos from 18+ sites and features rapid direct link retrieval.
-
 ---
 
 ## ✨ Key Features
